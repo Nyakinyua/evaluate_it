@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'awards.apps.AwardsConfig',
+    'pyuploadcare.dj',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'evaluate.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,6 +68,11 @@ TEMPLATES = [
         },
     },
 ]
+
+UPLOADCARE = {
+    'pub_key':'b084c2c7e288492e2d25',
+    'secret':'48f4ec8d39b91ad46639',
+}
 
 WSGI_APPLICATION = 'evaluate.wsgi.application'
 

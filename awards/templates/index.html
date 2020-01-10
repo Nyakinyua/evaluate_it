@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  {%for item in people%}
+  {{item.bio}}
+  {{item.email}}
+  {{item.phone_number}}
+  <img class="img-fluid" src="{{item.profile_pic.cdn_url}}"style="width:100px;height:100px;">
+  {%endfor%} 
+
+  {{message}}
+  
+<!-- The best place for this one is your <HEAD> tag -->
+    <script>UPLOADCARE_PUBLIC_KEY = "b084c2c7e288492e2d25";</script>
+    <script src="https://ucarecdn.com/libs/widget/3.7.4/uploadcare.full.min.js" charset="utf-8"></script>
+    
+    <!-- This is where the widget will be. Don't forget the name attribute! -->
+    <input type="hidden" role="uploadcare-uploader" name="my_file" />
+</body>
+</html>
