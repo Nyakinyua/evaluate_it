@@ -15,6 +15,12 @@
   {%endfor%} 
 
   {{message}}
+
+  {% for pros in project %}
+  {{pros.title}}
+  <img class="img-fluid" src="{{pros.image.cdn_url}}"style="width:100px;height:100px;">
+  {%endfor%}
+  
   
 <!-- The best place for this one is your <HEAD> tag -->
     <script>UPLOADCARE_PUBLIC_KEY = "b084c2c7e288492e2d25";</script>
