@@ -1,5 +1,8 @@
-from django.apps import AppConfig
+# from django.apps import AppConfig
 
 
-class AwardsConfig(AppConfig):
-    name = 'awards'
+# class AwardsConfig(AppConfig):
+#     name = 'awards'
+    
+#     def ready(self):
+#         import awards.signals

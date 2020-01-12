@@ -1,0 +1,39 @@
+{%extends 'layout.html'%}
+{%load static%}
+{load bootstrap4}
+{{block.supper}}
+{%block content%}
+
+
+
+   <div  class="container ">
+     <div class="row">
+         <div class="col-md-3"></div>
+       <div class="col-md-7 contain">
+         {%if results%}
+          <p>Marched {{results|length}} related  Projects</p>
+          {%else%}
+          <p class="alert alert-danger animated fadeIn">Either {{search_term}} Has no project !</p>
+          {%endif%}
+         <div class="card">
+           {%for user in results%}
+           <div class="card-title">
+            <p><strong>{{user.user}}'s </strong>Posts</div>
+            <div class ="card-body">
+                <p>{{user.title}}</p>
+            <img class="img-fluid" src="{{user.image.cdn_url}}" alt="" width="300">
+            </div>
+            <p>{{user.description}}</p>
+           {%endfor%}
+         </div>
+       </div>
+       <div class="col-md-2 ">
+         <div class="contain"></div>
+
+
+
+
+       </div>
+
+     </div>
+    {% endblock %}

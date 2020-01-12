@@ -1,0 +1,53 @@
+{%extends "registration/base.html"%}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+{{block.supper}}
+
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      {% if form.errors %}
+        <p> Password or Username is incorrect </p>
+      {% endif %}
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h1 class="text-center">Sign In</h1>
+        </div>
+        <div class="panel-body">
+
+          <form  action="/accounts/login/" method="post">
+            <h1>Evaluate_it</h1>
+            {% csrf_token %}
+            {% bootstrap_form form%}
+
+            <div class="form-group">
+              <input type="submit" class="btn btn-info sm" value="Login">
+            </div>
+
+            <h6 class="animated fadeIn">OR</h6>
+            <p style="text-align:center"><a class="facebook"href="www.facebook.com"><i class='fab fa-facebook'></i>Login with Facebook</a></p>
+
+          </form>
+
+        </div>
+        <div class="open">
+                <ul class="list-group">
+                  <li class="list-group-item">Dont have an account? <a href="/accounts/register/">Sign up here</a></li>
+     
+                </ul>
+     
+              </div>
+
+      </div>
+
+    </div>
+    <!-- empty div -->
+    <div class="col-md-4"></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
   {%for item in people%}
   {{item.bio}}
   {{item.email}}
@@ -15,18 +10,87 @@
   {%endfor%} 
 
   {{message}}
+  
 
   {% for pros in project %}
   {{pros.title}}
+  {{pros.description}}
   <img class="img-fluid" src="{{pros.image.cdn_url}}"style="width:100px;height:100px;">
+  {{pros.pub_date}}
   {%endfor%}
   
-  
-<!-- The best place for this one is your <HEAD> tag -->
-    <script>UPLOADCARE_PUBLIC_KEY = "b084c2c7e288492e2d25";</script>
-    <script src="https://ucarecdn.com/libs/widget/3.7.4/uploadcare.full.min.js" charset="utf-8"></script>
+  {% endblock %}
+ <!-- start here -->
+ {% load bootstrap4%}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    {% block styles%}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="../../static/css/index.css">
+<link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="label">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img style="width: 100%;" alt="" class="mod-img">
+                    <p id="img-desc"></p>
+                    <p id="img-location"></p>
+                    <p id="img-category"></p>
+                </div>
+                <div class="modal-footer">
+                    <input name="" id="url-to-copy" style="position:relative;left:10000px">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <!-- This is where the widget will be. Don't forget the name attribute! -->
-    <input type="hidden" role="uploadcare-uploader" name="my_file" />
-</body>
-</html>
+    <div class="container-fluid">
+        <h1 class=" text-center">Welcome to pIxElS</h1>
+        <div class="row grid flex">
+          {% for pros in project %}
+                <div class="grid-item">
+                    <img onclick="showModal('{{pros.title}}','{{pros.description}}','{{pros.pub_date}}')" class="image" src="{{pros.image.cdn_url}}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        {% bootstrap_javascript %}
+        <script>
+            var elem = document.querySelector('.grid');
+            var msnry = new Masonry(elem, {
+                // options
+                itemSelector: '.grid-item',
+                columnWidth: 200
+            });
+
+            // element argument can be a selector string
+            // for an individual element
+            var msnry = new Masonry('.grid', {
+                // options
+            })
+        </script>
+        <script src="../../static/js/nav.js"></script>
+        <script src="../../static/js/modal.js"></script>
+
+    {% endblock %}
+

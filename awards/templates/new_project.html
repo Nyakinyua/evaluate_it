@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+      {% if form.errors %}
+      <p class="alert alert-danger">Something is wrong. Please try again</p>
+      {% endif %}
+
+      <div class="card">
+        <div class="card-header"><h2><b><u>Add a new Project</u></b></h2></div>
+        <div class="card-body">
+          <form action="{% url 'new_project' %}" method="post" enctype="mulitpart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}          
+            <div class='form-group'>                     
+              <hr>
+              <input type="submit" class="btn btn-outline-info" value="Add">
+            </div>
+          </form>        
+        </div>      
+      </div>  
+
+    </div>    
+  </div>
+</div>
+{% endblock content %}
