@@ -24,3 +24,5 @@ class ProfileTestClass(TestCase):
         self.maya.delete_profile()
         profiles = Profile.objects.all()
         self.assertEqual(len(profiles), 0)
+        
+    

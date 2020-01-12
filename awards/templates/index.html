@@ -2,14 +2,6 @@
 {% load static %}
 
 {% block content %}
-  {%for item in people%}
-  {{item.bio}}
-  {{item.email}}
-  {{item.phone_number}}
-  <img class="img-fluid" src="{{item.profile_pic.cdn_url}}"style="width:100px;height:100px;">
-  {%endfor%} 
-
-  {{message}}
   
 
   {% for pros in project %}

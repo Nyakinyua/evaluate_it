@@ -1,0 +1,66 @@
+{%extends 'layout.html'%}
+{{block.supper}}
+{% load bootstrap4%}
+{%block content%}
+
+
+<div  class="container">
+  <br><br>
+  <div class="row">
+    <div class="col-md-1"> </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-4">
+          {%for i in profile%}
+          <img class="img-fluid rounded-circle" src="{{i.profile_pic.cdn_url}}" alt="profile">
+          {%endfor%}
+        </div>
+        <div class="col-md-8">
+
+          {%for i in pic%}
+          <p>Current status</p>
+          <p>{{i.bio}}</p>
+          {%endfor%}
+
+
+
+
+        </div>
+
+      </div>
+      <br>
+      <hr class="info">
+      <div class="tags">
+        <a href="#"><i class="far fa-newspaper"></i> Posts</a><a href="#"><i class="far fa-newspaper"></i> Saved</a>
+      </div>
+     </div>
+    <div class="col-md-1"> </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+      <div class="row">
+        {%if profile%}
+        {%for photo in projects%}
+        <div class="col-md-6">
+          <div class="image">
+          <a href=""><img class="img-fluid" src="{{photo.image.cdn_url}}" alt=""></a>
+            </div>
+          </div>
+
+        {%endfor%}
+        {%else%}
+        <div class="alert">
+          <p class="animated fadeIn alert alert-info">This User has not shared any Pictures <br>
+        </p>
+
+        </div>
+        {%endif%}
+
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+
+  </div>
+</div>

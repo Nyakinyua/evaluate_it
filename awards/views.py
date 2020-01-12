@@ -58,6 +58,10 @@ def search_project(request):
 
 
 @login_required(login_url="/accounts/login/")
+def single_project(request,project_id):
+    
+
+@login_required(login_url="/accounts/login/")
 def review(request,pk):
     project = get_object_or_404(Projects,pk=pk)
     review = ProjectReview(
@@ -116,4 +120,13 @@ def editProfile(request):
             
             return render(request,'edit.html',{'form':form})
         
-    
+@login_required(login_url="/accounts/login/")
+def other_users(request,user_id):
+    try:
+        profile_image = User_profile.objects.filter(id=user_id).all()
+        profile = profile_pic.reverse()[0:1]
+        projects = Projects.objects.filter(id=user_id)
+        users = User.objects.filter(id=user_id).all()
+    except Exception as e:
+        raise Http404()
+    return render(request,'other.html',{'users':users,'profile':profile,'projects':projects})

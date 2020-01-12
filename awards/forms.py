@@ -28,10 +28,10 @@ class NewProjectForm(forms.ModelForm):
         model = Projects
         fields = ('title','image','description','project_link') 
         
-class ReviewForm(forms.ModelForm):
-    """
-    Form that allows user post a review for a project
-    """
-    class Meta:
-        model=Review
-        exclude = ['user','date']       
+# class ReviewForm(forms.ModelForm):
+#     """
+#     Form that allows user post a review for a project
+#     """
+#     class Meta:
+#         model=Review
+#         exclude = ['user','date']       
