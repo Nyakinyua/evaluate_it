@@ -13,7 +13,9 @@ urlpatterns = [
     url(r'^logout/$',views.logout_user,name="logout_user"),
     path('profile/edit',views.editProfile,name='edit'),
     path('other/',views.other_users,name='others'),
-    path('review/',views.review,name='review')
+    path('review/',views.review,name='review'),
+    path('api/profile/',views.ProfileList.as_view()),
+    path('api/project/',views.ProjectList.as_view()),
     
 ]
 if settings.DEBUG:
