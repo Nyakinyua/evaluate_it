@@ -62,39 +62,93 @@ def search_project(request):
     
 
 @login_required(login_url="/accounts/login/")
-def review(request,pk):
+def rate_project(request,pk):
     [design,usability,content] = [0],[0],[0]
-    
-    project = get_object_or_404(Projects,pk=pk)
-    profile = User.objects.get(username=request.user)
+    post = get_object_or_404(Projects,pk=project_id)
     current_user = request.user
-    print(current_user)
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        [design,usability,content] = [0],[0],[0]
+        form = RateForm(request.POST)
+        [design,usability,content] = [[0],[0],[0]]
         
         if form.is_valid():
             form.save()
-            rating = Review.objects.last()
+            rating = Rate.objects.last()
             design = rating.design
-            usability =rating.usability
-            content = rating.content
+            usability = rating.usability
+            rating.post_rated = post
             rating.save()
+            
+            post_ratings =Rate.objects.filter(post_rated=post)
+            post_design_ratings = [pr.design for pr in post_ratings]
+            design_avg = 0
+            for value in post_design_ratings:
+                design_avg += value
+            design_score = (design_avg/len(post_design_ratings))
+            
+            
+            post_usability_ratings = [pr.usability for pr in post_ratings]
+            usability_avg = 0
+            for value in post_usability_ratings:
+                usability_avg += value
+            usability_score = (usability_avg/len(post_usability_ratings))
+            
+            
+            post_content_ratings = [pr.content for pr in post_ratings]
+            content_avg = 0
+            for value in post_content_ratings:
+                content_avg += value
+            content_score = (content_avg/len(post_content_ratings))  
+        
+            score = (design_score +usability_score + content_score)/3
+            
+            rating.score = score
+            rating.save()
+            
+            score = rating.score
+            return redirect('review')
+    else:
+        form = RateForm()
+        return render(request,'index.html',{'user':current_user,'ratings_form':form})
+
+
+
+
         
 @login_required(login_url="/accounts/login/")
-
+def review(request,id):
+    """
+    view function that renders one post and has a comment section
+    """
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user=request.user
+            post=Projects.objects.get(id=id)
+            comment.project_id=post
+            comment.save()
+            return redirect('review',id=id)
+    else:
+        form = ReviewForm()
+        project=Projects.get_one_project(id)  
+        project_Id=Projects.get_project_id(id)
+        comments=Review.get_review(project_Id)
+        ratings = Rate.objects.all()
+        return render(request,'one_project.html',{'form':form,'post':project,'comments':comments})
+        
 
 
 @login_required(login_url="/accounts/login/")
-def profile(request,user_id):
+def user_profile(request):
     try:
-        profile = User_profile.objects.get(id=user_id)
-        projects = Projects.objects.filter(id=id)
+        current_user=request.user.id
+        profile = User_profile.objects.get(user_Id=current_user).all()
+        profile_projects = Projects.objects.filter(userId=current_user)
         prof = profile_pic.reverse()[0:1]
     except Exception as e:
         raise Http404()
     
-    return render(request,'profile.html',{'profile':profile,'projects':projects})
+    return render(request,'profile.html',{'profile':profile,'projects':profile_projects,'pic':prof})
  
         
 @login_required(login_url="/accounts/login/")
