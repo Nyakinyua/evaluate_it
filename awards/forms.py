@@ -41,6 +41,6 @@ class RateForm(forms.ModelForm):
     Form that allows a user to rate a project
     '''
     class Meta:
-        model = Rate
-        exclude = ['user','date']
+        model=Rate
+        exclude = ['post_rated','user','date']
              
