@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'bootstrap4',
     'pyuploadcare.dj',
     'django.contrib.admin',

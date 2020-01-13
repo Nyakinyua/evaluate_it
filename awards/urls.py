@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^logout/$',views.logout_user,name="logout_user"),
     path('profile/edit',views.editProfile,name='edit'),
     path('other/',views.other_users,name='others'),
-    path('review/',views.review,name=review)
+    path('review/',views.review,name='review')
     
 ]
 if settings.DEBUG:

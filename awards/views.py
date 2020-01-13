@@ -4,7 +4,9 @@ from .models import User_profile, Projects,Review,ProjectReview
 from django.contrib.auth.models import User
 from .forms import UpdateProfileForm, NewProjectForm,EditProfileForm
 from django.contrib.auth.decorators import login_required
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import profileSerializer,projectSerializer
 # Create your views here.
 
 @login_required(login_url="/accounts/login/")
@@ -57,8 +59,9 @@ def search_project(request):
         return render(request, 'search.html', {'message': message})
 
 
-@login_required(login_url="/accounts/login/")
-def single_project(request,project_id):
+# @login_required(login_url="/accounts/login/")
+# def single_project(request,project_id):
+    
     
 
 @login_required(login_url="/accounts/login/")
@@ -97,7 +100,7 @@ def editProfile(request):
             form.EditProfileForm(request.POST,request.FILES)
             if form.is_valid():
                 profile = form.save(commit=False)
-                profile.userId=current_user_id
+                profile.id=current_user_id
                 profile.save()
             return redirect("profile")
         else:
@@ -112,7 +115,8 @@ def editProfile(request):
                 profile_pic = form.cleaned_data['profile_pic']
                 email = form.cleaned_data['email']
                 phone_number = form.cleaned_data['phone_number']
-                profile.save(update)
+                # update=User_profile.objects.filter(id=current_user_id).update(bio=bio,profile_pic=profile_pic,email=email,phone_number=phone_number)
+                profile.save()
             return redirect('profile')
         else:
             
@@ -130,3 +134,18 @@ def other_users(request,user_id):
     except Exception as e:
         raise Http404()
     return render(request,'other.html',{'users':users,'profile':profile,'projects':projects})
+
+
+class ProfileList(APIView):
+    def get(self,request,format=None):
+        all_profile = User_profile.objects.all()
+        serializers = profileSerializer(all_profile,many=True)
+        return Response(serializers.data)
+    
+class ProjectList(APIView):
+    def get(self,request,format=None):
+        all_projects = Projects.objects.all()
+        serializers = projectSerializer(all_projects,many=True)
+        return Response(serializers.data)
+    
+        
