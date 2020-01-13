@@ -1,5 +1,5 @@
 from django import forms
-from .models import User_profile,Projects,Review
+from .models import *
 from pyuploadcare.dj.forms import ImageField
 from django.contrib.auth.models import User
 
@@ -34,4 +34,13 @@ class ReviewForm(forms.ModelForm):
     """
     class Meta:
         model=Review
-        exclude = ['user','date']       
+        exclude = ['project','posted_by']  
+        
+class RateForm(forms.ModelForm):
+    '''
+    Form that allows a user to rate a project
+    '''
+    class Meta:
+        model = Rate
+        exclude = ['user','date']
+             
