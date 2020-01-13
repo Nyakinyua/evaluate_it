@@ -1,0 +1,136 @@
+* {
+    overflow-x: hidden;
+    font-family: Maven Pro;
+}
+.image {
+    max-width: 100%;
+    cursor: pointer;
+}
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.7);top: 0;left: 0;width: 100%;height: 100%;position: relative;z-index: 1;
+}
+.grid {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 10fr));
+}
+.grid-item {
+    width: 33.3333%;
+    padding: 10px;
+    position: relative;
+}
+nav {
+    background: transparent;
+    margin-bottom: 15px;
+    border: none;
+    transition: background 0.8s
+}
+
+.shrink {
+    background: #101010;
+}
+.landing {
+    background: url(../../media/images/back.jpeg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px;
+    background-attachment: fixed;
+    width: 100%;
+}
+nav a {
+    color: white;
+    transition: background 0.8s;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 20px;
+}
+.form-container {
+    margin-left: 28%;
+    margin-top: 16%;
+}
+.back-form .form-control {
+    width: 60%;
+    height: 50px;
+    display: inline-block;
+}
+#search-btn {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    display: inline-block;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+#landing-form {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.under {
+    color: white;
+    margin: 1%;
+}
+.navbar-right {
+    display: inline-block
+}
+.navbar-form {
+    display: none;
+    transition: display 0.8s
+}
+.navbar-form .form-control {
+    height: 33px;
+}
+.row {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    padding: 0 4px;
+  }
+  
+  /* Create four equal columns that sits next to each other */
+  .column {
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
+    max-width: 25%;
+    padding: 0 4px;
+  }
+  
+  .column img {
+    margin-top: 8px;
+    vertical-align: middle;
+    width: 100%;
+  }
+  
+  /* Responsive layout - makes a two column-layout instead of four columns */
+  @media screen and (max-width: 800px) {
+    .column {
+      -ms-flex: 50%;
+      flex: 50%;
+      max-width: 50%;
+    }
+  }
+  
+  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column {
+      -ms-flex: 100%;
+      flex: 100%;
+      max-width: 100%;
+    }
+  }
+
+
+/* Media Queries: Tablet Landscape */
+@media screen and (max-width: 1060px) {
+    #primary { width:67%; }
+    #secondary { width:30%; margin-left:3%;}  
+}
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+    #primary { width:100%; }
+    #secondary { width:100%; margin:0; border:none; }
+}

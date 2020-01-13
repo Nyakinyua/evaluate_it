@@ -11,10 +11,10 @@ urlpatterns = [
     path('new_project/',views.post_project,name='new_project'),
     path('profile/<int:user_id>',views.profile,name='profile'),
     url(r'^logout/$',views.logout_user,name="logout_user"),
-    path('profile/edit',views.editProfile,name='edit'),
+    path('profile/edit/',views.editProfile,name='edit'),
     path('other/',views.other_users,name='others'),
-    path('review/',views.review,name='review'),
-    path('api/profile/',views.ProfileList.as_view()),
+    path('review/<int:pk>',views.review,name='review'),
+    url(r'^api/profile/$', views.ProfileList.as_view()),
     path('api/project/',views.ProjectList.as_view()),
     
 ]

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import profileSerializer,projectSerializer
+from django.contrib.auth import logout
 # Create your views here.
 
 @login_required(login_url="/accounts/login/")
@@ -66,16 +67,35 @@ def search_project(request):
 
 @login_required(login_url="/accounts/login/")
 def review(request,pk):
+    [design,usability,content] = [0],[0],[0]
+    
     project = get_object_or_404(Projects,pk=pk)
-    review = ProjectReview(
-        design = request.POST['design'],
-        usability = request.POST['usability'],
-        content = request.POST['content'],
-        comment = request.POST['comment'],
-        user = request.user,
-        project = project)
+    profile = User.objects.get(username=request.user)
+    current_user = request.user
+    print(current_user)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        [design,usability,content] = [0],[0],[0]
+        
+        if form.is_valid()
+        form.save()
+        rating = Review.objects.last()
+        design = rating.design
+        usability =rating.usability
+        content = rating.content
+        rating.post_rated = post
+        rating.save()
+        
+        
+    # review = ProjectReview(
+    #     design = request.POST['design'],
+    #     usability = request.POST['usability'],
+    #     content = request.POST['content'],
+    #     comment = request.POST['comment'],
+    #     user = request.user,
+    #     project = project)
     review.save()
-    return HttpResponseRedirect(reverse('myprojects:project_details', args=(project.id)))
+    return redirect(request,'rate.html',{'form':form,'project':project,'profile':profile})
 
 
 @login_required(login_url="/accounts/login/")
