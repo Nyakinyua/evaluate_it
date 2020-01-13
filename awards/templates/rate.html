@@ -1,20 +1,23 @@
+{%load bootstrap4%}
+{%load static%}
+{% block content %}
 <h2>Reviews</h2>
 
 <ul>
-  {% for review in restaurant.restaurantreview_set.all %}
+  
     <li>
       <p>{{ review.rating }} star{{ review.rating|pluralize }}</p>
       <p>{{ review.comment }}</p>
       <p>Created by {{ review.user }} on {{ review.date }}</p>
     </li>
-  {% endfor %}
+  
 </ul>
 
 <h3>Add Review</h3>
 
-<form action="{% url 'myrestaurants:review_create' restaurant.id %}" method="post">
+<form action="review/" method="post">
   {% csrf_token %}
-
+  {% bootstrap_form rateform %} 
   Message: <textarea name="comment" id="comment" rows="4"></textarea>
   <p>Rating:</p>
   <p>
@@ -26,3 +29,5 @@
   </p>
   <input type="submit" value="Review" />
 </form>
+
+{% endblock %}

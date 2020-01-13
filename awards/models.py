@@ -57,17 +57,18 @@ class Projects(models.Model):
     class Meta:
         ordering = ['pub_date']
         
-class Review(models.Model):
+class Rate(models.Model):
     RATING_CHOICES = ((1,'one'),(2,'two'),(3,'three'),(4,'four'),(5,'five'),(6,'six'),(7,'seven'),(8,'eight'),(9,'nine'),(10,'ten'))
     design = models.PositiveSmallIntegerField('Rating(stars)',blank=False,default=0,choices=RATING_CHOICES)
     usability = models.PositiveSmallIntegerField('Rating(stars)',blank=False,default=0,choices=RATING_CHOICES)
     content = models.PositiveSmallIntegerField('Rating(stars)',blank=False,default=0,choices=RATING_CHOICES)
-    comment = models.TextField(blank=True,null=True)
     user = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
     date=models.DateTimeField(auto_now_add=True) 
     
     class Meta:
         abstract = True   
         
-class ProjectReview(Review):
+class Review(models.Model):
     project = models.ForeignKey(Projects,on_delete=models.CASCADE)   
+    comment = models.TextField()
+    posted_by = models.ForeignKey(User,default=None,on_delete=models.CASCADE)

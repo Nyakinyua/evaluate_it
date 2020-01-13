@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponse,HttpResponseRedirect,Http404
-from .models import User_profile, Projects,Review,ProjectReview
+from .models import *
 from django.contrib.auth.models import User
-from .forms import UpdateProfileForm, NewProjectForm,EditProfileForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -58,10 +58,6 @@ def search_project(request):
     else:
         message = "You did not search any Project, please input project name"
         return render(request, 'search.html', {'message': message})
-
-
-# @login_required(login_url="/accounts/login/")
-# def single_project(request,project_id):
     
     
 
@@ -77,25 +73,16 @@ def review(request,pk):
         form = ReviewForm(request.POST)
         [design,usability,content] = [0],[0],[0]
         
-        if form.is_valid()
-        form.save()
-        rating = Review.objects.last()
-        design = rating.design
-        usability =rating.usability
-        content = rating.content
-        rating.post_rated = post
-        rating.save()
+        if form.is_valid():
+            form.save()
+            rating = Review.objects.last()
+            design = rating.design
+            usability =rating.usability
+            content = rating.content
+            rating.save()
         
-        
-    # review = ProjectReview(
-    #     design = request.POST['design'],
-    #     usability = request.POST['usability'],
-    #     content = request.POST['content'],
-    #     comment = request.POST['comment'],
-    #     user = request.user,
-    #     project = project)
-    review.save()
-    return redirect(request,'rate.html',{'form':form,'project':project,'profile':profile})
+@login_required(login_url="/accounts/login/")
+
 
 
 @login_required(login_url="/accounts/login/")
