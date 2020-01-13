@@ -10,6 +10,7 @@ class User_profile(models.Model):
     class that creates an instance of a user profile
     """
     user=models.OneToOneField(User,on_delete=models.CASCADE)
+    userId=models.IntegerField(default=None)
     bio = models.CharField(max_length=40)
     profile_pic = ImageField(blank=True,manual_crop="")
     email = models.EmailField() 
@@ -20,6 +21,15 @@ class User_profile(models.Model):
     
     def save_profile(self):
         return self.save()
+    
+    def delete_profile(self):
+        profile=User_profile.objects.all().delete()
+        return profile
+    
+    @classmethod
+    def get_profile(cls,id):
+        profile = User_profile.objects.get(user=id)
+        return profile
         
     
 
@@ -52,23 +62,57 @@ class Projects(models.Model):
         project = cls.objects.filter(title__icontains=search_term)
         return project
         
-        
+    @classmethod
+    def get_one_project(cls,id):
+        project=cls.objects.get(id=id)
+        return project   
     
     class Meta:
         ordering = ['pub_date']
         
+    @classmethod
+    def get_project_id(cls,project_id):
+        '''
+        function that gets an project id    
+        '''
+        project_id=cls.objects.filter(id=project_id)
+        return project_id
+        
 class Rate(models.Model):
     RATING_CHOICES = ((1,'one'),(2,'two'),(3,'three'),(4,'four'),(5,'five'),(6,'six'),(7,'seven'),(8,'eight'),(9,'nine'),(10,'ten'))
-    design = models.PositiveSmallIntegerField('Rating(stars)',blank=False,default=0,choices=RATING_CHOICES)
-    usability = models.PositiveSmallIntegerField('Rating(stars)',blank=False,default=0,choices=RATING_CHOICES)
-    content = models.PositiveSmallIntegerField('Rating(stars)',blank=False,default=0,choices=RATING_CHOICES)
+    design = models.PositiveSmallIntegerField('Rating(stars)',blank=True,default=0,choices=RATING_CHOICES)
+    usability = models.PositiveSmallIntegerField('Rating(stars)',blank=True,default=0,choices=RATING_CHOICES)
+    content = models.PositiveSmallIntegerField('Rating(stars)',blank=True,default=0,choices=RATING_CHOICES)
+    score = models.PositiveSmallIntegerField('Rating(stars)',blank=True,default=0)
+    post_rated = models.ForeignKey(Projects,on_delete=models.CASCADE,related_name='ratings',null=True)
     user = models.ForeignKey(User,default=1,on_delete=models.CASCADE)
     date=models.DateTimeField(auto_now_add=True) 
     
     class Meta:
-        abstract = True   
+        abstract = True
+        
+    @classmethod
+    def get_ratings(cls,id):
+        ratings = Rate.objects.filter(project_id=id).all()
+        return ratings   
         
 class Review(models.Model):
     project = models.ForeignKey(Projects,on_delete=models.CASCADE)   
     comment = models.TextField()
     posted_by = models.ForeignKey(User,default=None,on_delete=models.CASCADE)
+    
+    def save_review(self):
+        return self.save()
+    
+    def delete_review(self):
+        return self.delete()
+    
+    def __str__(self):
+        return self.comment
+    
+     
+     
+    @classmethod
+    def get_review(cls,id):
+        comments = cls.objects.filter(project_id__in=id)
+        return comments
