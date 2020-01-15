@@ -77,8 +77,8 @@ TEMPLATES = [
 ]
 
 UPLOADCARE = {
-    'pub_key':'b084c2c7e288492e2d25',
-    'secret':'48f4ec8d39b91ad46639',
+    'pub_key':'21fb134561af1fda9b52',
+    'secret':'11b93a0a99e003ed3702',
 }
 
 WSGI_APPLICATION = 'evaluate.wsgi.application'
@@ -141,5 +141,5 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login'

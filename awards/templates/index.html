@@ -2,16 +2,80 @@
 {% load static %}
 
 {% block content %}
-  
 
-  {% for pros in project %}
-  <div class='row'>
-      <div class="column">
-  <img class="img-fluid" src="{{pros.image.cdn_url}}"alt='project-landing-page' style="width:100%">
+
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" style="margin-bottom: 3em;">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100"
+                    src="https://images.pexels.com/photos/109371/pexels-photo-109371.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    alt="First slide" height="500px">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 style="font-size: 40px;font-weight: 700" class="wow slideInLeft" data-wow-duration="2s"
+                        data-wow-delay="2s">Evaluate_it</h3>
+                    <p style="font-size: 30px;font-weight: 700" class="wow slideInRight" data-wow-duration="2s"
+                        data-wow-delay="2s">Get Awwwards for your app</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100"
+                    src="https://images.pexels.com/photos/796602/pexels-photo-796602.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    alt="Second slide" height="500px">
+                <div class="carousel-caption d-none d-md-block" id="position">
+                    <h3 style="font-size: 50px;font-weight: 700" class="wow fadeInDown" data-wow-duration="5s"
+                        data-wow-delay="1s">Showcase </h3>
+                    <p style="font-size: 45px;font-weight: 700" class="wow fadeInUp" data-wow-duration="5s"
+                        data-wow-delay="1s">Its gonna be worth it</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100"
+                    src="https://images.pexels.com/photos/372787/pexels-photo-372787.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    alt="Third slide" height="500px" id="img">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="wow jackInTheBox" data-wow-duration="1s" data-wow-delay="1s"
+                        style="color:white; font-size:50px;font-weight: 700">~Give it a try~</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="container">
+
+  <div class="row">
+    {% for post in project %}
+    <div class=col-md-4>
+      <div class="card" style="margin-bottom: 5em;">
+        <div class="card-title">
+        <h3>{{post.title}}</h3>
+      </div>
+        <a href="/review/{{post.project_id}}">
+          <img class="img-fluid" src="{{post.image.cdn_url}}" alt=""></a>
+      
+
+
+      <div class="card-body">
+        <p>{{post.description}}</p>
+         </div>
+         <div class="card-footer">
+          <a href="{{post.project_link}}">Link to live site</a>
+          <p>posted {{post.pub_date|timesince}} ago</p>
+         </div>
+      <div class="section">
+        <a href="/review/{{post.id}}"><button class="btn btn-info" type="button" name="button">Write a
+            Review</button></a>
+      </div>
+
+    </div>
+  </div>
   {%endfor%}
-</div>
-</div>
-  {{pros.pub_date}}
+  <br><br>
 
-  
-  {% endblock %}
+</div>
+
+
+<div class='col-md-2'></div>
+</div>
+</div>
+
+
+{% endblock %}

@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import profileSerializer,projectSerializer
 from django.contrib.auth import logout
+from django.contrib import messages
 # Create your views here.
 
 @login_required(login_url="/accounts/login/")
@@ -62,9 +63,9 @@ def search_project(request):
     
 
 @login_required(login_url="/accounts/login/")
-def rate_project(request,pk):
+def rate_project(request,id):
     [design,usability,content] = [0],[0],[0]
-    post = get_object_or_404(Projects,pk=project_id)
+    post = get_object_or_404(Projects,id=project_id)
     current_user = request.user
     if request.method == 'POST':
         form = RateForm(request.POST)
@@ -123,9 +124,9 @@ def review(request,id):
         form = ReviewForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.user=request.user
+            comment.posted_by=request.user
             post=Projects.objects.get(id=id)
-            comment.project_id=post
+            comment.project=post
             comment.save()
             return redirect('review',id=id)
     else:
@@ -133,58 +134,58 @@ def review(request,id):
         project=Projects.get_one_project(id)  
         project_Id=Projects.get_project_id(id)
         comments=Review.get_review(project_Id)
-        ratings = Rate.objects.all()
         return render(request,'one_project.html',{'form':form,'post':project,'comments':comments})
         
 
 
 @login_required(login_url="/accounts/login/")
 def user_profile(request):
-    try:
-        current_user=request.user.id
-        profile = User_profile.objects.get(user_Id=current_user).all()
-        profile_projects = Projects.objects.filter(userId=current_user)
-        prof = profile_pic.reverse()[0:1]
-    except Exception as e:
-        raise Http404()
+
+    current_user=request.user
+    profile = User_profile.objects.filter(user = current_user)
+    projects = Projects.objects.filter(posted_by=current_user)
+  
+   
     
-    return render(request,'profile.html',{'profile':profile,'projects':profile_projects,'pic':prof})
+    return render(request,'profile.html',{'profile':profile,'projects':projects})
  
         
 @login_required(login_url="/accounts/login/")
 def editProfile(request):
     current_user_id=request.user.id
-    profile = User_profile.objects.filter(id=current_user_id)
-    if len(profile)<1:
-        
-        if request.method == 'POST':
-            form.EditProfileForm(request.POST,request.FILES)
-            if form.is_valid():
-                profile = form.save(commit=False)
-                profile.id=current_user_id
-                profile.save()
-            return redirect("profile")
-        else:
-            form = EditProfileForm()
-            return render(request,'edit.html',{'form':form})
-    else:
+    profexist = User_profile.objects.filter(user = request.user)
+
+    if profexist is None:
         if request.method == 'POST':
             form = UpdateProfileForm(request.POST,request.FILES)
             if form.is_valid():
                 profile = form.save(commit=False)
-                bio = form.cleaned_data['bio']
-                profile_pic = form.cleaned_data['profile_pic']
-                email = form.cleaned_data['email']
-                phone_number = form.cleaned_data['phone_number']
-                # update=User_profile.objects.filter(id=current_user_id).update(bio=bio,profile_pic=profile_pic,email=email,phone_number=phone_number)
+                profile.user = request.user
                 profile.save()
-            return redirect('profile')
+                return redirect('profile')
         else:
             
             form = UpdateProfileForm()
             
+        return render(request,'edit.html',{'form':form})
+    else:
+        if request.method == 'POST':
+            form = UpdateProfileForm(request.POST,request.FILES,instance = request.user.user_profile)
+            if form.is_valid():
+                profexist = form.save(commit = False)
+                profexist.user = request.user
+                profexist.save()
+                return redirect('profile')
+            else:
+                messages.info(request,'al fields are required')
+                return redirect('profile')
+        else:
+            form = UpdateProfileForm()
             return render(request,'edit.html',{'form':form})
-        
+                
+    
+    
+    
 @login_required(login_url="/accounts/login/")
 def other_users(request,user_id):
     try:

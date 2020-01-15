@@ -11,24 +11,32 @@
          <div class="col-md-3"></div>
        <div class="col-md-7 contain">
          {%if results%}
-          <p>Marched {{results|length}} related  Projects</p>
+          <p>Marched {{results|length}} related  Posts</p>
           {%else%}
-          <p class="alert alert-danger animated fadeIn">Either {{search_term}} Has no project !</p>
+          <p class="alert alert-danger animated fadeIn">Either {{term}} Has not to shared any projects or has no profile !</p>
           {%endif%}
          <div class="card">
-           {%for user in results%}
+           {%for user in results %}
            <div class="card-title">
             <p><strong>{{user.user}}'s </strong>Posts</div>
             <div class ="card-body">
-                <p>{{user.title}}</p>
+                <p>{{user.image_name}}</p>
             <img class="img-fluid" src="{{user.image.cdn_url}}" alt="" width="300">
             </div>
-            <p>{{user.description}}</p>
+            <p>{{user.caption}}</p>
            {%endfor%}
          </div>
        </div>
        <div class="col-md-2 ">
-         <div class="contain"></div>
+         <div class="contain">
+
+
+    
+
+
+
+
+       </div>
 
 
 
