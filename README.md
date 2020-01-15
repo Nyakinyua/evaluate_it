@@ -48,4 +48,7 @@ An application that allows users to rate other projects based on the design, usa
 ## Support and contact details
  In case You have any contributions and add ons to this application or any issues using this code please feel free to get in touch with me via [email](wanyakinyua968@gmail.com)
 
-https://github.com/Nyakinyua/evaluate_it/blob/master/LICENSE
+## License 
+#### This project is licensed by [Mit License](https://github.com/Nyakinyua/evaluate_it/blob/master/LICENSE)
+  
+  ####     (c) **[Nyakinyua](https://github.com/)**
