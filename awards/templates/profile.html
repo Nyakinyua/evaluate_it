@@ -1,14 +1,12 @@
-{% extends 'layout.html'%}
+{% extends 'layout.html' %}
 {% load static %}
-{% load bootstrap 4 %}
+{% load bootstrap4 %}
 
-
+{% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-1"> </div>
-        <div class="col-md-8">
-            <img class="img-fluid rounded circle" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg" alt='default-profile'>
-            <div class="row">
+        <div class="col-md-8"></div>
                 <div class="col-md-4">
                     {%for i in profile%}
                     <img class="img-fluid rounded-circle" src="{{i.profile_pic.cdn_url}}" alt="profile">
@@ -17,16 +15,17 @@
                 <div class="col-md-8">
                     <div class=" idea">
 
-                        <a>{{user}}</a> <a href="{%url 'new_project'%}"> <button type="button" class="btn btn-light">Add Project</button></a><a id="prompt"><i class="fas fa-cog fa-spin"></i></a>
+                        
 
                     </div>
 
                     {%for i in profile%}
+                    <a>{{user}}</a> <br>
                     <p>This is is your status</p>
                     <p>{{i.bio}}</p>
                     {%endfor%}
 
-
+                    <a href="{%url 'edit'%}" class="btn btn-info">Update Profile</a>
 
 
                 </div>
@@ -42,7 +41,7 @@
         <div class="col-md-1"> </div>
 
     </div>
-    <div class="row">
+     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-8">
             <div class="row">
@@ -69,4 +68,5 @@
         <div class="col-md-1"></div>
 
     </div>
-</div>
+</div> 
+{% endblock %}
