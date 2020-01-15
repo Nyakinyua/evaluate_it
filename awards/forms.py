@@ -43,4 +43,7 @@ class RateForm(forms.ModelForm):
     class Meta:
         model=Rate
         exclude = ['post_rated','user','date']
+        
+ 
+    
              
