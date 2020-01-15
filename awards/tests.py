@@ -25,4 +25,3 @@ class ProfileTestClass(TestCase):
         profiles = Profile.objects.all()
         self.assertEqual(len(profiles), 0)
         
-    
