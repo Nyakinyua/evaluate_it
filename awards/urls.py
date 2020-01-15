@@ -15,7 +15,7 @@ urlpatterns = [
     path('other/',views.other_users,name='others'),
     path('review/<int:id>',views.review,name='review'),
     path('review/rate/<int:id>',views.rate_project,name='rate'),
-    path('rate/<int:pk>',views.rate_project,name='rate_project'),
+    url(r'^rate/(?P<project_id>\d+)',views.rate_project, name='rate_project'),
     url(r'^api/profile/$', views.ProfileList.as_view()),
     path('api/project/',views.ProjectList.as_view()),
     

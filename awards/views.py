@@ -63,53 +63,26 @@ def search_project(request):
     
 
 @login_required(login_url="/accounts/login/")
+@login_required
 def rate_project(request,id):
-    [design,usability,content] = [0],[0],[0]
-    post = get_object_or_404(Projects,id=project_id)
-    current_user = request.user
+    """
+    the function that will be used when rating projects
+    """
+    project = Projects.objects.filter(id=id)
+    profile = User.objects.get(username=request.user)
     if request.method == 'POST':
-        form = RateForm(request.POST)
-        [design,usability,content] = [[0],[0],[0]]
-        
-        if form.is_valid():
-            form.save()
-            rating = Rate.objects.last()
-            design = rating.design
-            usability = rating.usability
-            rating.post_rated = post
+        rateform = RateForm(request.POST, request.FILES)
+        print(rateform.errors)
+        if rateform.is_valid():
+            rating = rateform.save(commit=False)
+            rating.project = project
+            rating.user = request.user
             rating.save()
-            
-            post_ratings =Rate.objects.filter(post_rated=post)
-            post_design_ratings = [pr.design for pr in post_ratings]
-            design_avg = 0
-            for value in post_design_ratings:
-                design_avg += value
-            design_score = (design_avg/len(post_design_ratings))
-            
-            
-            post_usability_ratings = [pr.usability for pr in post_ratings]
-            usability_avg = 0
-            for value in post_usability_ratings:
-                usability_avg += value
-            usability_score = (usability_avg/len(post_usability_ratings))
-            
-            
-            post_content_ratings = [pr.content for pr in post_ratings]
-            content_avg = 0
-            for value in post_content_ratings:
-                content_avg += value
-            content_score = (content_avg/len(post_content_ratings))  
-        
-            score = (design_score +usability_score + content_score)/3
-            
-            rating.score = score
-            rating.save()
-            
-            score = rating.score
-            return redirect('review')
+            return redirect('detail',id)
     else:
-        form = RateForm()
-        return render(request,'index.html',{'user':current_user,'ratings_form':form})
+        rateform = RateForm()
+    return render(request,'rate.html',locals())
+
 
 
 

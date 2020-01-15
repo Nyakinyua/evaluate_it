@@ -1,3 +1,15 @@
+# Evaluate_it
+#### This is a python web application that uses Django framework and Postgresql
+#### By **[Nyakinyua](https://github.com/Nyakinyua)**
+## Description
+An application that allows users to rate other projects based on the design, usability and content
+
+
+## SetUp/Installation Requirements
+* python3.6
+* pip
+
+
 ### Cloning
 * In your terminal:
 
