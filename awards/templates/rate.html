@@ -1,33 +1,73 @@
 {%load bootstrap4%}
 {%load static%}
 {% block content %}
-<h2>Reviews</h2>
 
-<ul>
-  
-    <li>
-      <p>{{ review.rating }} star{{ review.rating|pluralize }}</p>
-      <p>{{ review.comment }}</p>
-      <p>Created by {{ review.user }} on {{ review.date }}</p>
-    </li>
-  
-</ul>
+<div class="col-md-4">
+  <form class="form-group" action="rate/{{post.id}}/" name='{{post.id}}' method="post">
+    {%csrf_token%}
+    {% form Rate_form %}
+    <input type="hidden" name="id" value="{{ image.id }}">
+    <div class="bttn">
+      <button id='post' class="btn btn-info"  type="submit" name="button">Post</button>
+    </div>
 
-<h3>Add Review</h3>
+  </form>
+</div>
 
-<form action="review/" method="post">
-  {% csrf_token %}
-  {% bootstrap_form rateform %} 
-  Message: <textarea name="comment" id="comment" rows="4"></textarea>
-  <p>Rating:</p>
-  <p>
-    {% for rate in RATING_CHOICES %}
-      <input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ rate.0 }}" />
-      <label for="choice{{ forloop.counter }}">{{ rate.1 }} star{{rate.0|pluralize }}</label>
-      <br/>
-    {% endfor %}
-  </p>
-  <input type="submit" value="Review" />
+<form id="questions" >
+  <div class="row">
+      <div class="col-md-6">
+          Design.
+      </div>
+      <div class="col-md-6">
+          <input type="radio" name="rate1" id="terrible" checked="checked" value="terrible">0.1%
+          <input type="radio" name="rate1" id="poor" value="poor">20%
+          <input type="radio" name="rate1" id="average" value="average">50%
+          <input type="radio" name="rate1" id="very good" value="very good">80%
+          <input type="radio" name="rate1" id="excellent" value="excellent">100%
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      </br>
+      <div class="col-md-6">
+          Usability.
+      </div>
+      <div class="col-md-6">
+          <input type="radio" name="rate2" id="terrible" checked="checked" value="terrible">0.1%
+          <input type="radio" name="rate2" id="poor" value="poor">20%
+          <input type="radio" name="rate2" id="average" value="average">50%
+          <input type="radio" name="rate2" id="very good" value="very good">80%
+          <input type="radio" name="rate2" id="excellent" value="excellent">100%
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      </br>
+      <div class="col-md-6">
+          creativity.
+      </div>
+      <div class="col-md-6">
+          <input type="radio" name="rate3" id="terrible" checked="checked" value="terrible">0.1%
+          <input type="radio" name="rate3" id="poor" value="poor">20%
+          <input type="radio" name="rate3" id="average" value="average">50%
+          <input type="radio" name="rate3" id="very good" value="very good">80%
+          <input type="radio" name="rate3" id="excellent" value="excellent">100%
+      </div>
+  </div>
+  <br>
+  <button  type="submit" id="vote-btn" name="reset_form" value="Reset Form" onclick="this.form.reset();"> rate</button>
 </form>
+</div>
+</div>
+<div id="divhidden" style="display: none;">
+<div class="col-md-8">
+<form action="{% url 'rate'  project.id %}" method="POST" enctype="multipart/form-data" id="ratingform">
+  {% csrf_token %}
+  {% bootstrap_form rateform %}
+  <input type="submit" class="btn btn-outline-success" value="Upload">
+</form>
+
+
 
 {% endblock %}

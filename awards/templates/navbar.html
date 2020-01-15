@@ -1,22 +1,180 @@
  
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand text-white" href="/">Evaluate_it</a>
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-                <a class="text-white nav-link" href="{% url 'logout_user' %}">Locations</a>
-            </li>
-            <li class="nav-item">
-                <a class="text-white nav-link" href="/admin">Admin</a>
-            </li>
-        </ul>
-        <form class="form-inline navbar-form" role="search" action = "{% url 'search_project' %}">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="term">
-            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insta-pics</title>
+<link href="https://fonts.googleapis.com/css?family=Raleway|Open+Sans" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+
+
+.form-inline {
+		display: inline-block;
+}	
+
+@media (max-width:600px) {
+  .nav > .nav-btn {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+  .nav > .nav-btn > label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 13px;
+  }
+  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .nav > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid #eee;
+  }
+  .nav > .nav-links {
+    position: absolute;
+    display: block;
+    width: 100%;
+    background-color: #333;
+    height: 0px;
+    transition: all 0.3s ease-in;
+    overflow-y: hidden;
+    top: 50px;
+    left: 0px;
+  }
+  .nav > .nav-links > a {
+    display: block;
+    width: 100%;
+  }
+  .nav > #nav-check:not(:checked) ~ .nav-links {
+    height: 0px;
+  }
+  .nav > #nav-check:checked ~ .nav-links {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+  }
+}		
+    }
+	.navbar-header.col {
+		padding: 0 !important;
+	}	
+	.navbar {
+		font-size: 14px;
+		background: #fff;
+		padding-left: 16px;
+		padding-right: 16px;
+		border-bottom: 1px solid #d6d6d6;
+		box-shadow: 0 0 4px rgba(80, 34, 107, 0.1);		
+	}
+	.navbar .navbar-brand {
+		color: #555;
+		padding-left: 0;
+		font-size: 20px;
+		padding-right: 50px;
+		
+		text-transform: uppercase;
+		font-weight: 900;
+		font-family: 'Pacifico', cursive
+	}
+	
+	
+	.inp-group-max{
+	width:100%;
+	max-width:32rem;
+	min-width:280px;
+	margin:auto;
+}
+.navbar{
+	position:-webkit-sticky;
+	position:sticky;top:0;
+	background:info;
+	z-index: 9999;
+}
+	
+	.navbar .navbar-form {
+		border: none;
+	}
+	@media (min-width: 992px){
+		.form-inline .input-group .form-control {
+			width: 225px;			
+		}
+	}
+	@media (max-width: 992px){
+		.form-inline {
+			display: block;
+		}
+	}
+
+		/* Tablet Landscape */
+@media screen and (max-width: 1060px) {
+    #primary { width:67%; }
+    #secondary { width:30%; margin-left:3%;}  
+}
+/* Tabled Portrait */
+@media screen and (max-width: 768px) {
+    #primary { width:100%; }
+    #secondary { width:100%; margin:0; border:none; }
+}
+</style>
+</head> 
+<body>
+<nav class="navbar navbar-default navbar-expand-lg navbar-dark">
+	<div class="navbar-header d-flex col"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWK2tRQOaM5p8eh05UsIbTidHuCxlXysi6QP8P6USAkOnJ8U4K&s" alt="insta" width="60">
+		<a class="navbar-brand" href="{% url 'home'%}" style="font-weight:bolder ">Evaluate_it </a> 
+				
+		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle navbar-toggler ml-auto">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</div>
+	<!-- Collection of nav links, forms, and other content for toggling -->
+	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-between">
+		
+		<form  action="{%url 'search_project'%}" role="search" class="form-inline  my-2 my-lg-0">
+				<div style="text-align: right;">
+			<input id="searchUp" class="form-control mr-sm-2" name="project" type="search" placeholder="Search" aria-label="Search">
+		<button class=" btn btn-info">search</button> 
+		</div>
+		</form>	
+		
+			<ul class="navbar-nav ml-auto" style="text-align: right; padding-right: .6em;">  
+				{% if user.is_authenticated %} 
+				  {% if user.profile_pic %}          
+				  <img class="img-fluid rounded-circle" src="{{people.profile_pic.cdn_url}}" alt="profile" width="40px" height="40px"alt="Profile photo">                              
+				  {% else %}
+				  <a id="navUser" class="" href="{% url 'profile'%}"><img class="rounded-circle"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLLiVPh45RkmE-FnMz_mZBOwcrK2BemrMoJ5I5SRSa5zHuMy3L&s"  style="float:right;width:42px;height:42px;" alt="Profile photo"></a>
+				  {% endif %} 
+				           
+				  <div class="button button-5">
+					<div id="translate"></div>              
+					  <a style="color:rgb(97, 183, 212);padding-left: 10em;" class="nav-link" href="{% url 'logout_user' %}" >Logout</a>          
+				  </div> 
+				  
+				{% else %}
+				  <li class="nav-item">
+				  <div class="button button-5">
+					<div id="translate"></div>              
+					  <a style="color:rgb(97, 183, 212)" class="nav-link" href="/accounts/login/">Sign In</a>          
+				  </div> 
+				  </li>   
+				{% endif %}             
+			  </ul>
+	</div>
+	<a href="{% url 'new_project'%}"><button class="btn btn-info navbar-btn">Submit Project</button></a>
 </nav>
+</body>
+</html>
