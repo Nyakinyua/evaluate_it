@@ -10,7 +10,6 @@ class User_profile(models.Model):
     class that creates an instance of a user profile
     """
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    userId=models.IntegerField(default=None)
     bio = models.CharField(max_length=40)
     profile_pic = ImageField(blank=True,manual_crop="")
     email = models.EmailField() 
